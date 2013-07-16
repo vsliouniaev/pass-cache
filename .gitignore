@@ -1,0 +1,41 @@
+# Build output
+bin
+obj
+
+# Visual Studio settings
+*.suo
+*.csproj.user
+*.pubxml.user
+
+# ReSharper files
+_ReSharper*
+*.resharper.user
+*.ReSharper.user
+*.DotSettings.user
+*.csproj.DotSettings
+
+# Lucene index files
+src/TSM.Service.Wcf/App_Data/IndexFiles
+
+# Mac files
+.DS_Store
+._.DS_Store
+
+
+#Java build artifacts
+/src/HKI-CAS/target/
+
+# Lucene Index files
+*.cfs
+
+# App_Data
+App_Data
+/src/HKI-CAS/target/
+
+# Certain configuration files with build-time transforms
+target
+.settings
+
+classes
+*.class
+schema
