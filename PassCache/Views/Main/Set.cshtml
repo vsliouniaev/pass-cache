@@ -1,0 +1,48 @@
+﻿@model Guid
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Set</title>
+        <script type="text/javascript" src="~/Scripts/sjcl.js"></script>
+        <script type="text/javascript">
+            function encrypt() {
+                var data = document.getElementById('data').value;
+                var pass = document.getElementById('password').value;
+                if (pass === "" || pass.length < 8) {
+                    alert("Password should be at least 8 chars");
+                    return;
+                }
+                document.getElementById('encrypted').value = sjcl.encrypt(pass, data);
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <p>
+                <a href="@Url.Action("Get", new{id = Model})">@Url.Action("Get", new{id = Model})</a>
+            </p>
+            <p>
+                <label for="data">Data</label>
+            </p>
+            <p>
+                <textarea id="data" name="data" rows="30" cols="60"></textarea>
+            </p>
+            <p>
+                <label for="password">Password</label>
+            </p>
+            <p>
+                <input id="password" type="text" name="password" />
+            </p>
+            <p>
+                <button onclick="encrypt()">Save</button>
+            </p>
+            @using (Html.BeginForm("Set"))
+            {
+                <input name="id" type="hidden" value="@Model"/>
+                <input id="encrypted" type="hidden" name="data"></input>
+                <button type="submit">Submit</button>
+            }
+        </div>
+</body>
+</html>
