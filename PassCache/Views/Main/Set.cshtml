@@ -1,68 +1,49 @@
 ﻿@model PassCache.Models.SetModel
+<pre style="text-align: center; height: 40px">
+@Url.Action("Get", "Main", new { id = Model.Guid }, Request.Url.Scheme)
+<label id="password"></label>
+</pre>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Set</title>
-</head>
-    <body>
-        <div>
-            <p>
-                @Url.Action("Get", "Main", new { id = Model.Guid }, Request.Url.Scheme)
-                @*<a href="@Url.Action("Get", new{id = Model})">@Url.Action("Get", new{id = Model})</a>*@
-                <br/>
-                <label>Password</label>
-                <br/>
-                <label id="password"></label>
-            </p>
-            <p>
-                <label for="data">Data</label>
-            </p>
-            <p>
-                <textarea id="data" rows="30" cols="60"></textarea>
-            </p>
-            @using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "encrypt()" }))
-            {
-                <input name="id" type="hidden" value="@Model.Guid"/>
-                <input id="encrypted" type="hidden" name="data"></input>
-                <button type="submit">Submit</button>
+<textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>
+
+@using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "encrypt()" }))
+{
+    <input name="id" type="hidden" value="@Model.Guid"/>
+    <input id="encrypted" type="hidden" name="data"></input>
+    <button class="btn btn-primary pull-right" type="submit">Submit</button>
+}
+
+<script type="text/javascript">
+
+    encrypt = function () {
+        var data = document.getElementById('data').value;
+        var pass = document.getElementById('password').innerHTML;
+        document.getElementById('encrypted').value = sjcl.encrypt(pass, data);
+    };
+
+    // Password generation based on GRC's (https://www.grc.com/r&d/js.htm)
+    collectLocalEntropy = function () {
+        var i, j, realRnd, intRnd, base64entropy = '';
+        for (j = 0; j < 32; j++) {
+            realRnd = Math.random(); // get a 54-bit decimal [0-1]
+            // successively multiply the RND to extract its 54 bits, 6 bits at a time, 8 times
+            for (var i = 0; i < 8; i++) {
+                intRnd = Math.floor(realRnd *= 64); // move the top 6 bits to the left of the decimal point
+                realRnd -= intRnd; // remove the integer portion retaining the factional
+                base64entropy += base64chars.charAt(intRnd); // build the base64 character string
             }
-        </div>
-    </body>
-    <script type="text/javascript" src="~/Scripts/sjcl.js"></script>
-    <script type="text/javascript">
+        }
+        return base64entropy;
+    };
 
-        encrypt = function () {
-            var data = document.getElementById('data').value;
-            var pass = document.getElementById('password').innerHTML;
-            document.getElementById('encrypted').value = sjcl.encrypt(pass, data);
-        };
+    SetPassword = function ( /* accept zero or more arguments */) {
+        // digest the event count and time plus ANY number of arguments passed to us
+        var cipherKeyBits = sjcl.hash.sha256.hash('@Model.Random' + collectLocalEntropy + new Date().getTime());
+        // update the page with the new count, time, and digest
+        var bits = sjcl.codec.base64.fromBits(cipherKeyBits, true);
+        document.getElementById('password').innerHTML = bits;
+    };
 
-        // Password generation based on GRC's (https://www.grc.com/r&d/js.htm)
-        collectLocalEntropy = function () {
-            var i, j, realRnd, intRnd, base64entropy = '';
-            for (j = 0; j < 32; j++) {
-                realRnd = Math.random(); // get a 54-bit decimal [0-1]
-                // successively multiply the RND to extract its 54 bits, 6 bits at a time, 8 times
-                for (var i = 0; i < 8; i++) {
-                    intRnd = Math.floor(realRnd *= 64); // move the top 6 bits to the left of the decimal point
-                    realRnd -= intRnd; // remove the integer portion retaining the factional
-                    base64entropy += base64chars.charAt(intRnd); // build the base64 character string
-                }
-            }
-            return base64entropy;
-        };
+    SetPassword();
 
-        SetPassword = function ( /* accept zero or more arguments */) {
-            // digest the event count and time plus ANY number of arguments passed to us
-            var cipherKeyBits = sjcl.hash.sha256.hash('@Model.Random' + collectLocalEntropy + new Date().getTime());
-            // update the page with the new count, time, and digest
-            var bits = sjcl.codec.base64.fromBits(cipherKeyBits, true);
-            document.getElementById('password').innerHTML = bits;
-        };
-
-        SetPassword();
-
-    </script>
-
-</html>
+</script>
