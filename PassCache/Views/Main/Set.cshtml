@@ -20,7 +20,8 @@
     <body>
         <div>
             <p>
-                <a href="@Url.Action("Get", new{id = Model})">@Url.Action("Get", new{id = Model})</a>
+                @Url.Action("Get", "Main", new{id = Model}, Request.Url.Scheme)
+                @*<a href="@Url.Action("Get", new{id = Model})">@Url.Action("Get", new{id = Model})</a>*@
             </p>
             <p>
                 <label for="data">Data</label>
