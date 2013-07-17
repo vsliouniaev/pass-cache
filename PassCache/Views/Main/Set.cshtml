@@ -1,7 +1,7 @@
 ﻿@model PassCache.Models.SetModel
 <pre style="text-align: center; height: 40px">
-@Url.Action("Get", "Main", new { id = Model.Guid }, Request.Url.Scheme)
-<label id="password"></label>
+@Url.RouteUrl("Get", new { id = Model.Guid }, Request.Url.Scheme)
+<label id="password" style="cursor: text;"></label>
 </pre>
 
 <textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>

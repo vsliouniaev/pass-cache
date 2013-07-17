@@ -1,24 +1,20 @@
 ﻿@model string
 <!DOCTYPE html>
-    <script type="text/javascript">
-        function decrypt() {
-            var encrypted = document.getElementById('encrypted').value;
-            var pass = document.getElementById('pass').value;
-            document.getElementById('data').value = sjcl.decrypt(pass, encrypted);
-        }
-        </script>
+<script type="text/javascript">
+    function decrypt() {
+        var encrypted = document.getElementById('encrypted').value;
+        var pass = document.getElementById('pass').value;
+        document.getElementById('data').value = sjcl.decrypt(pass, encrypted);
+    }
+</script>
 
-    <div>
-        <input id="encrypted" type="hidden" value="@Model"/>
-        <p>
-            <label>Password</label>
-            <button onclick="decrypt()"> Get </button>
-        </p>
-        <p>
-            <input id="pass" type="text" />
-        </p>
-        <p>
-            <textarea id="data" cols="60" rows="30"></textarea>
-        </p>
+<div>
+    <input id="encrypted" type="hidden" value="@Model"/>
+    <label>Password</label>
+    <div class="input-append">
+        <input id="pass" type="text" class="span7" />
+        <button class="btn btn-primary" style="width: 80px"onclick="decrypt()">Get </button>
     </div>
+    <textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>
+</div>
 

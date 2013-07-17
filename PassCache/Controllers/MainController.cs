@@ -24,7 +24,7 @@ namespace PassCache.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Set");
+                return RedirectToRoute("Default");
             }
 
             string str;
@@ -36,7 +36,7 @@ namespace PassCache.Controllers
             
             if (string.IsNullOrEmpty(str))
             {
-                return RedirectToAction("Set");
+                return RedirectToRoute("Default");
             }
 
             return View("Get", null, str);
