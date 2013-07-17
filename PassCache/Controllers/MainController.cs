@@ -26,8 +26,14 @@ namespace PassCache.Controllers
             {
                 return RedirectToAction("Set");
             }
-            var str = (string)System.Web.HttpContext.Current.Cache.Get(id);
-            System.Web.HttpContext.Current.Cache.Remove(id);
+
+            string str;
+            lock (Lock)
+            {
+                str = (string) System.Web.HttpContext.Current.Cache.Get(id);
+                System.Web.HttpContext.Current.Cache.Remove(id);
+            }
+            
             if (string.IsNullOrEmpty(str))
             {
                 return RedirectToAction("Set");
@@ -35,5 +41,7 @@ namespace PassCache.Controllers
 
             return View("Get", null, str);
         }
+
+        private static readonly object Lock = new object();
     }
 }
