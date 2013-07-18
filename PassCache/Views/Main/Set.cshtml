@@ -1,5 +1,4 @@
-﻿<!--<pre id="display" style="text-align: center; height: 40px">-
-</pre>-->
+﻿@model string[]
 <div id="inputs">
     <iframe name="iframe" height="0" width="0" onLoad="showCredentials()" ></iframe>
     <textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>
@@ -19,7 +18,9 @@
     var urlP = Uheprng();
     var passP = Uheprng();
     urlP.initState();
-    passP.initState();
+    urlP.initState();
+    urlP.addEntropy("@Model[0]");
+    passP.addEntropy("@Model[1]");
     var stop = false;
     var urlInteverval = (Math.random() * 10) + 5;
     var passInterval = (Math.random() * 10) + 5;

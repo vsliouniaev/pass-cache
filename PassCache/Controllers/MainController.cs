@@ -9,6 +9,13 @@ namespace PassCache.Controllers
     {
         private static readonly TimeSpan Expiration = TimeSpan.FromMinutes(5);
 
+        private string GetRandomString()
+        {
+            var bytes = new byte[256];
+            new System.Security.Cryptography.RNGCryptoServiceProvider().GetBytes(bytes);
+            return Convert.ToBase64String(bytes);
+        }
+
         public ActionResult Set(string id, string data)
         {
             if (id != null && data != null)
@@ -16,8 +23,8 @@ namespace PassCache.Controllers
                 System.Web.HttpContext.Current.Cache.Insert(id, data, null, DateTime.UtcNow.Add(Expiration),
                                                             Cache.NoSlidingExpiration);
             }
-
-            return View("Set");
+            
+            return View("Set", null, new[]{GetRandomString(), GetRandomString()});
         }
 
         public ActionResult Get(string id)
