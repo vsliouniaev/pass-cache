@@ -80,7 +80,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\SetModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,7 +89,9 @@
     <Content Include="Global.asax" />
     <Content Include="Static\bootstrap-responsive.min.css" />
     <Content Include="Static\bootstrap.min.css" />
+    <Content Include="Static\passcache.css" />
     <Content Include="Static\sjcl.js" />
+    <Content Include="Static\uheprng.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -102,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

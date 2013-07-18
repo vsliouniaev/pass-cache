@@ -1,49 +1,78 @@
-﻿@model PassCache.Models.SetModel
-<pre style="text-align: center; height: 40px">
-@Url.RouteUrl("Get", new { id = Model.Guid }, Request.Url.Scheme)
-<label id="password" style="cursor: text;"></label>
-</pre>
+﻿<!--<pre id="display" style="text-align: center; height: 40px">-
+</pre>-->
+<div id="inputs">
+    <iframe name="iframe" height="0" width="0" onLoad="showCredentials()" ></iframe>
+    <textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>
 
-<textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>
+    @using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "send()", target="iframe" }))
+    {
+        <input id="id" name="id" type="hidden" />
+        <input id="encrypted" type="hidden" name="data" />
+        <button class="btn btn-primary pull-right" type="submit">Send</button>
+    }
+</div>
 
-@using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "encrypt()" }))
-{
-    <input name="id" type="hidden" value="@Model.Guid"/>
-    <input id="encrypted" type="hidden" name="data"></input>
-    <button class="btn btn-primary pull-right" type="submit">Submit</button>
-}
-
+<script type="text/javascript" src="/Static/uheprng.js"></script>
 <script type="text/javascript">
 
-    encrypt = function () {
-        var data = document.getElementById('data').value;
-        var pass = document.getElementById('password').innerHTML;
-        document.getElementById('encrypted').value = sjcl.encrypt(pass, data);
-    };
+    var showCreds = false;
+    var urlP = Uheprng();
+    var passP = Uheprng();
+    urlP.initState();
+    passP.initState();
+    var stop = false;
+    var urlInteverval = (Math.random() * 10) + 5;
+    var passInterval = (Math.random() * 10) + 5;
 
-    // Password generation based on GRC's (https://www.grc.com/r&d/js.htm)
-    collectLocalEntropy = function () {
-        var i, j, realRnd, intRnd, base64entropy = '';
-        for (j = 0; j < 32; j++) {
-            realRnd = Math.random(); // get a 54-bit decimal [0-1]
-            // successively multiply the RND to extract its 54 bits, 6 bits at a time, 8 times
-            for (var i = 0; i < 8; i++) {
-                intRnd = Math.floor(realRnd *= 64); // move the top 6 bits to the left of the decimal point
-                realRnd -= intRnd; // remove the integer portion retaining the factional
-                base64entropy += base64chars.charAt(intRnd); // build the base64 character string
-            }
+    function urlG() {
+        urlP.addEntropy();
+        if (!stop) {
+            setTimeout(urlG, urlInteverval);
         }
-        return base64entropy;
+    }
+
+    function passG() {
+        passP.addEntropy();
+        if (!stop) {
+            setTimeout(passG, urlInteverval);
+        }
+    }
+
+    urlG();
+    passG();
+    var pass = '';
+    var raw = '';
+    var credentials = '';
+    stopGeneration = function () {
+        stop = true;
+        var url = '@Url.RouteUrl("Get", new { }, Request.Url.Scheme)';
+        raw = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(urlP.string(64)), true);
+        var id = encodeURIComponent(raw);
+        var fullUrl = url + '?id=' + id;
+        pass = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(passP.string(64)), true);
+        credentials = fullUrl + '<br/>' + pass;
     };
 
-    SetPassword = function ( /* accept zero or more arguments */) {
-        // digest the event count and time plus ANY number of arguments passed to us
-        var cipherKeyBits = sjcl.hash.sha256.hash('@Model.Random' + collectLocalEntropy + new Date().getTime());
-        // update the page with the new count, time, and digest
-        var bits = sjcl.codec.base64.fromBits(cipherKeyBits, true);
-        document.getElementById('password').innerHTML = bits;
+    function send() {
+        stopGeneration();
+        var data = document.getElementById('data').value;
+        document.getElementById('id').value = raw;
+        document.getElementById('encrypted').value = sjcl.encrypt(pass, data);
+        showCreds = true;
     };
 
-    SetPassword();
+    
+    function showCredentials() {
+        if (showCreds) {
+            clear();
+            document.getElementById('display').innerHTML = credentials;
+        }
+        showCreds = false;
+    }
 
+    function clear() {
+        var n = document.getElementById('inputs');
+        n.parentNode.removeChild(n);
+    }
+    
 </script>

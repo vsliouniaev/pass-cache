@@ -10,10 +10,9 @@
 
 <div>
     <input id="encrypted" type="hidden" value="@Model"/>
-    <label>Password</label>
     <div class="input-append">
-        <input id="pass" type="text" class="span7" />
-        <button class="btn btn-primary" style="width: 80px"onclick="decrypt()">Get </button>
+        <input placeholder="password" id="pass" type="text" class="span7" />
+        <button class="btn btn-primary" style="width: 80px" onclick="decrypt()">Decrypt</button>
     </div>
     <textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>
 </div>

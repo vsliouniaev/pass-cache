@@ -1,33 +1,18 @@
-﻿@*<!DOCTYPE html>
-
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <link type="text/css"  rel="stylesheet" href="/Static/bootstrap.min.css" type="text/css"/>
-        <script type="text/javascript" src="/Static/sjcl.js"></script>
-    
-    </head>
-    <body>
-        @RenderBody()
-    </body>
-</html>
-*@
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>passcashe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="/Static/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/Static/passcache.css" />
     <script type="text/javascript" src="/Static/sjcl.js"></script>
 </head>
 
 <body style="padding-top: 50px;">
     <div class="container-narrow" style="margin: 0 auto; display: table ">
         <div class="row">
-            <div class="span8 well">
+            <div id="display" class="span8 well">
                 @RenderBody()
             </div>
         </div>

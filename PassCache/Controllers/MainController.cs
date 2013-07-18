@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Caching;
 using System.Web.Mvc;
-using PassCache.Models;
+
 
 namespace PassCache.Controllers
 {
@@ -17,7 +17,7 @@ namespace PassCache.Controllers
                                                             Cache.NoSlidingExpiration);
             }
 
-            return View("Set", null, new SetModel());
+            return View("Set");
         }
 
         public ActionResult Get(string id)

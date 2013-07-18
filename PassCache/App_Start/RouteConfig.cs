@@ -10,7 +10,7 @@ namespace PassCache.App_Start
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                 name: "Get",
-                url: "Get/",
+                url: "Get",
                 defaults: new { controller = "Main", action = "Get" }
             );
 
