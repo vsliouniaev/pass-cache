@@ -25,6 +25,7 @@ body {
     text-align: center;
     display: table;
     margin: 0 auto;
+    max-width: 620px;
 }
 
 .git {
