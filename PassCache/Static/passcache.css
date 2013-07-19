@@ -17,9 +17,14 @@ iframe {
     display: none;
 }
 
+body {
+    padding-top: 50px;
+}
+
 #display {
     text-align: center;
     display: table;
+    margin: 0 auto;
 }
 
 .git {
