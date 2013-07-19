@@ -21,3 +21,15 @@ iframe {
     text-align: center;
     display: table;
 }
+
+.git {
+    margin: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: grey;
+}
+
+.git:hover {
+    color: black;
+}
