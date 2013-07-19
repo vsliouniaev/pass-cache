@@ -1,6 +1,6 @@
 ﻿@model string[]
 <div id="inputs">
-    <iframe name="iframe" height="0" width="0" onLoad="showCredentials()" ></iframe>
+    <iframe name="iframe" height="0" width="0" onLoad=" afterSend()" ></iframe>
     <textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>
 
     @using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "send()", target="iframe" }))
@@ -51,7 +51,7 @@
         var id = encodeURIComponent(raw);
         var fullUrl = url + '?id=' + id;
         pass = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(passP.string(64)), true);
-        credentials = fullUrl + '<br/>' + pass;
+        credentials = fullUrl + '<br/><br/>' + pass;
     };
 
     function send() {
@@ -63,8 +63,9 @@
     };
 
     
-    function showCredentials() {
+    function afterSend() {
         if (showCreds) {
+            document.title = "passcache";
             clear();
             document.getElementById('display').innerHTML = credentials;
         }
