@@ -20,11 +20,11 @@ namespace PassCache.Controllers
         {
             if (id != null && data != null)
             {
-                System.Web.HttpContext.Current.Cache.Insert(id, data, null, DateTime.UtcNow.Add(Expiration),
-                                                            Cache.NoSlidingExpiration);
+                var obj = new SingleAccessObject<string>(data);
+                System.Web.HttpContext.Current.Cache.Insert(id, obj, null, DateTime.UtcNow.Add(Expiration), Cache.NoSlidingExpiration);
             }
-            
-            return View("Set", null, new[]{GetRandomString(), GetRandomString()});
+
+            return View("Set", null, new[] { GetRandomString(), GetRandomString() });
         }
 
         public ActionResult Get(string id)
@@ -33,22 +33,18 @@ namespace PassCache.Controllers
             {
                 return RedirectToRoute("Default");
             }
+            
+            var obj = (SingleAccessObject<string>)System.Web.HttpContext.Current.Cache.Get(id);
+            
+            if (obj == null) return RedirectToRoute("Default");
 
             string str;
-            lock (Lock)
+            if (obj.TryGet(out str))
             {
-                str = (string) System.Web.HttpContext.Current.Cache.Get(id);
                 System.Web.HttpContext.Current.Cache.Remove(id);
+                return View("Get", null, str);
             }
-            
-            if (string.IsNullOrEmpty(str))
-            {
                 return RedirectToRoute("Default");
-            }
-
-            return View("Get", null, str);
         }
-
-        private static readonly object Lock = new object();
     }
 }
