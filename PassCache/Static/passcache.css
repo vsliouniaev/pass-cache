@@ -1,15 +1,14 @@
-﻿textarea.password {
-    height: auto;
-    margin: 0 auto;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    font-size: 100%;
-    vertical-align: baseline;
-    background: transparent;
-    box-shadow: none;
-    transition: none;
-    width: 50%;
+﻿body {
+    background-color: #EEEEEE;
+    padding-top: 15px;
+}
+
+#setresult {
+    white-space: pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    text-align: center;
 }
 
 iframe {
@@ -17,25 +16,13 @@ iframe {
     display: none;
 }
 
-body {
-    padding-top: 50px;
-}
-
-#display {
-    text-align: center;
-    display: table;
-    margin: 0 auto;
-    max-width: 620px;
-}
-
 .git {
     margin: 20px;
     position: absolute;
     bottom: 0;
     right: 0;
-    color: grey;
 }
 
-.git:hover {
-    color: black;
+textarea {
+    resize: vertical;
 }

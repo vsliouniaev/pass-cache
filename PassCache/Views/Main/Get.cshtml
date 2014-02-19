@@ -1,5 +1,5 @@
 ﻿@model string
-<!DOCTYPE html>
+
 <script type="text/javascript">
     function decrypt() {
         var encrypted = document.getElementById('encrypted').value;
@@ -8,12 +8,19 @@
     }
 </script>
 
-
 <input id="encrypted" type="hidden" value="@Model"/>
-<div class="input-append">
-    <input placeholder="password" id="pass" type="text" class="span7" />
-    <button class="btn btn-primary" style="width: 80px" onclick="decrypt()">Decrypt</button>
+<div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8">
+        <div class="input-group">
+            <input placeholder="password" id="pass" type="text" class="form-control" />
+            <span class="input-group-btn">
+                <button class="btn btn-primary pull-right" style="width: 80px" onclick="decrypt()">Decrypt</button>
+            </span>
+        </div>
+    </div>
 </div>
-<textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>
+<br />
+
+@Html.Partial("_Textarea")
 
 

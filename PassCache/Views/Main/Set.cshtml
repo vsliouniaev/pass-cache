@@ -1,15 +1,27 @@
 ﻿@model string[]
-<div id="inputs">
-    <iframe name="iframe" height="0" width="0" onLoad=" afterSend()" ></iframe>
-    <textarea id="data" class="span8" style="resize: vertical" rows="15"></textarea>
 
-    @using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "send()", target="iframe" }))
-    {
-        <input id="id" name="id" type="hidden" />
-        <input id="encrypted" type="hidden" name="data" />
-        <button class="btn btn-primary pull-right" type="submit">Send</button>
-    }
+<div id="setresult" class="col-xs-12  col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8"></div>
+<div id="inputs">
+
+    <iframe name="iframe" height="0" width="0" onload="afterSend()"></iframe>
+    
+    @Html.Partial("_Textarea")
+
+    <div class="row">
+        <div class="col-xs-12  col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8">
+            <div class="pull-right">
+                @using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "send()", target = "iframe" }))
+                {
+                    <input id="id" name="id" type="hidden" />
+                    <input id="encrypted" type="hidden" name="data" />
+                    <br />
+                    <button class="btn btn-primary" type="submit">Send</button>
+                }
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <script type="text/javascript" src="~/Static/uheprng.js"></script>
 <script type="text/javascript">
@@ -62,12 +74,13 @@
         showCreds = true;
     };
 
-    
+
     function afterSend() {
         if (showCreds) {
             document.title = "passcache";
             clear();
-            document.getElementById('display').innerHTML = credentials;
+            document.getElementById('setresult').innerHTML = credentials;
+            document.getElementById('inputs').innerHTML = "";
         }
         showCreds = false;
     }
@@ -76,5 +89,5 @@
         var n = document.getElementById('inputs');
         n.parentNode.removeChild(n);
     }
-    
+
 </script>
