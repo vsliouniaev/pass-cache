@@ -90,6 +90,7 @@
     <Content Include="Global.asax" />
     <Content Include="Static\bootstrap.min.css" />
     <Content Include="Static\get.js" />
+    <Content Include="Static\GitHub-Mark-32px.png" />
     <Content Include="Static\passcache.css" />
     <Content Include="Static\set.js" />
     <Content Include="Static\sjcl.js" />

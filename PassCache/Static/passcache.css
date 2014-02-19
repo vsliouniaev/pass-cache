@@ -1,7 +1,17 @@
-﻿body {
+﻿html {
+    height: 100%;
+}
+
+.container-fluid {
+    min-height: 95%;
+}
+
+body {
     background-color: #EEEEEE;
     padding-top: 15px;
+    height: 100%;
 }
+
 .centered {
     white-space: pre-wrap;
     white-space: -pre-wrap;
@@ -9,19 +19,22 @@
     word-wrap: break-word;
     text-align: center;
 }
+
 button {
     width: 80px;
 }
+
 iframe {
     visibility: hidden;
     display: none;
 }
 
 .git {
-    margin: 20px;
-    position: absolute;
+    position: relative;
     bottom: 0;
-    right: 0;
+    width: 100%;
+    padding-right: 20px;
+    text-align: right;
 }
 
 textarea {
