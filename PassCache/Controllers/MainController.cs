@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Web.Caching;
 using System.Web.Mvc;
-
-
 namespace PassCache.Controllers
 {
     public class MainController : Controller
     {
         private static readonly TimeSpan Expiration = TimeSpan.FromMinutes(5);
 
-        private string GetRandomString()
+        private static string GetRandomString()
         {
             var bytes = new byte[256];
             new System.Security.Cryptography.RNGCryptoServiceProvider().GetBytes(bytes);
@@ -31,12 +29,12 @@ namespace PassCache.Controllers
         {
             if (id == null)
             {
-                return RedirectToRoute("Default");
+                return View("Gone");
             }
-            
+
             var obj = (SingleAccessObject<string>)System.Web.HttpContext.Current.Cache.Get(id);
-            
-            if (obj == null) return RedirectToRoute("Default");
+
+            if (obj == null) return View("Gone");
 
             string str;
             if (obj.TryGet(out str))
@@ -44,7 +42,7 @@ namespace PassCache.Controllers
                 System.Web.HttpContext.Current.Cache.Remove(id);
                 return View("Get", null, str);
             }
-                return RedirectToRoute("Default");
+            return View("Gone");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace PassCache.Controllers
+﻿namespace PassCache
 {
     public class SingleAccessObject<T> where T : class
     {

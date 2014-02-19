@@ -1,16 +1,11 @@
 ﻿@model string[]
 
-<div id="setresult" class="col-xs-12  col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8"></div>
 <div id="inputs">
-
-    <iframe name="iframe" height="0" width="0" onload="afterSend()"></iframe>
-    
-    @Html.Partial("_Textarea")
-
+    @Helpers.TextArea()
     <div class="row">
-        <div class="col-xs-12  col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8">
+        <div class="@Helpers.ResponsiveClass()">
             <div class="pull-right">
-                @using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "send()", target = "iframe" }))
+                @using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "beforeFormSubmit()", target = "iframe" }))
                 {
                     <input id="id" name="id" type="hidden" />
                     <input id="encrypted" type="hidden" name="data" />
@@ -22,72 +17,10 @@
     </div>
 </div>
 
-
+<iframe name="iframe" height="0" width="0" onload="afterFormSubmit()"></iframe>
+<div id="setresult" class="centered"/>
 <script type="text/javascript" src="~/Static/uheprng.js"></script>
+<script type="text/javascript" src="~/Static/set.js"></script>
 <script type="text/javascript">
-
-    var showCreds = false;
-    var urlP = Uheprng();
-    var passP = Uheprng();
-    urlP.initState();
-    urlP.initState();
-    urlP.addEntropy("@Model[0]");
-    passP.addEntropy("@Model[1]");
-    var stop = false;
-    var urlInteverval = (Math.random() * 10) + 5;
-    var passInterval = (Math.random() * 10) + 5;
-
-    function urlG() {
-        urlP.addEntropy();
-        if (!stop) {
-            setTimeout(urlG, urlInteverval);
-        }
-    }
-
-    function passG() {
-        passP.addEntropy();
-        if (!stop) {
-            setTimeout(passG, urlInteverval);
-        }
-    }
-
-    urlG();
-    passG();
-    var pass = '';
-    var raw = '';
-    var credentials = '';
-    stopGeneration = function () {
-        stop = true;
-        var url = '@Url.RouteUrl("Get", new { }, Request.Url.Scheme)';
-        raw = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(urlP.string(64)), true);
-        var id = encodeURIComponent(raw);
-        var fullUrl = url + '?id=' + id;
-        pass = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(passP.string(64)), true);
-        credentials = fullUrl + '<br/><br/>' + pass;
-    };
-
-    function send() {
-        stopGeneration();
-        var data = document.getElementById('data').value;
-        document.getElementById('id').value = raw;
-        document.getElementById('encrypted').value = sjcl.encrypt(pass, data);
-        showCreds = true;
-    };
-
-
-    function afterSend() {
-        if (showCreds) {
-            document.title = "passcache";
-            clear();
-            document.getElementById('setresult').innerHTML = credentials;
-            document.getElementById('inputs').innerHTML = "";
-        }
-        showCreds = false;
-    }
-
-    function clear() {
-        var n = document.getElementById('inputs');
-        n.parentNode.removeChild(n);
-    }
-
+    var url = '@Url.RouteUrl("Get", new { }, Request.Url.Scheme)';
 </script>

@@ -2,15 +2,16 @@
     background-color: #EEEEEE;
     padding-top: 15px;
 }
-
-#setresult {
+.centered {
     white-space: pre-wrap;
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
     text-align: center;
 }
-
+button {
+    width: 80px;
+}
 iframe {
     visibility: hidden;
     display: none;

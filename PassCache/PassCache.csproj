@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\MainController.cs" />
-    <Compile Include="Controllers\SingleAccessObject.cs" />
+    <Compile Include="SingleAccessObject.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -89,7 +89,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
     <Content Include="Static\bootstrap.min.css" />
+    <Content Include="Static\get.js" />
     <Content Include="Static\passcache.css" />
+    <Content Include="Static\set.js" />
     <Content Include="Static\sjcl.js" />
     <Content Include="Static\uheprng.js" />
     <Content Include="Web.config" />
@@ -114,12 +116,13 @@
     <Content Include="Views\Main\Get.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Helpers.cshtml" />
     <None Include="Properties\PublishProfiles\Janus.pubxml" />
     <None Include="Properties\PublishProfiles\PassCache - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\PassCache - Web Deploy.pubxml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Textarea.cshtml" />
+    <Content Include="Views\Main\Gone.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
