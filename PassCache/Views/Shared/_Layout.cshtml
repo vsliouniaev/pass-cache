@@ -1,20 +1,27 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>passcache</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="~/Static/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="~/Static/passcache.css" />
-    <script type="text/javascript" src="~/Static/sjcl.js"></script>
+    @Styles.Render("~/css")
+    @Scripts.Render("~/js")
 </head>
 
 <body>
-    <div class="container-fluid">
-        @RenderBody()
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12  col-sm-10 col-sm-offset-1 col-md-offset-2 col-md-8">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
     </div>
     <div class="git">
-        <a href="https://github.com/vsliouniaev/pass-cache"><img  alt="github" src="~/Static/GitHub-Mark-32px.png" height="25" width="25"/></a>
+        <a href="https://github.com/vsliouniaev/pass-cache">
+            <img alt="github" src="~/Static/GitHub-Mark-32px.png" height="25" width="25" /></a>
     </div>
 </body>
 </html>

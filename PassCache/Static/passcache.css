@@ -3,7 +3,12 @@
 }
 
 .container-fluid {
-    min-height: 95%;
+    background-color: #EEEEEE;
+}
+
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -50px;
 }
 
 body {
@@ -35,8 +40,18 @@ iframe {
     width: 100%;
     padding-right: 20px;
     text-align: right;
+    z-index: -1;
 }
 
 textarea {
     resize: vertical;
+}
+
+.info-only {
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+    -o-user-select: none;
+    user-select: none;
+    color: #888888;
 }

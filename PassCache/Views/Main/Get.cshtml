@@ -1,20 +1,14 @@
 ﻿@model string
-
-<script type="text/javascript" src="~/Static/get.js"></script>
-
 <input id="encrypted" type="hidden" value="@Model"/>
-<div class="row">
-    <div class="@Helpers.ResponsiveClass()">
-        <div class="input-group">
-            <input id="pass" type="text" class="form-control" placeholder="password" />
-            <span class="input-group-btn">
-                <button class="btn btn-primary pull-right" onclick="decrypt()">Decrypt</button>
-            </span>
-        </div>
-    </div>
+<div class="input-group">
+    <input id="pass" type="text" class="form-control" placeholder="password" />
+    <span class="input-group-btn">
+        <button class="btn btn-primary pull-right" onclick="decrypt()">Decrypt</button>
+    </span>
 </div>
 <br />
+<textarea id="data" class="form-control" rows="15"></textarea>
 
-@Helpers.TextArea()
+
 
 

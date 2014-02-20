@@ -4,7 +4,7 @@ var urlInteverval = (Math.random() * 10) + 5;
 var passInterval = (Math.random() * 10) + 5;
 var pass = '';
 var raw = '';
-var credentials = '';
+var fullUrl = '';
 var urlP = Uheprng();
 var passwordP = Uheprng();
 
@@ -50,15 +50,16 @@ function stopPrngs() {
     stop = true;
     raw = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(urlP.string(64)), true);
     var id = encodeURIComponent(raw);
-    var fullUrl = url + '?id=' + id;
+    fullUrl = url + '?id=' + id;
     pass = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(passwordP.string(64)), true);
-    credentials = fullUrl + '<br/><br/>' + pass;
 };
 
 function afterFormSubmit() {
     if (showCreds) {
         document.title = "passcache";
-        document.getElementById('setresult').innerHTML = credentials;
+        document.getElementById('result').removeAttribute("hidden");
+        document.getElementById('accessUrl').innerHTML = fullUrl;
+        document.getElementById('accessPassword').innerHTML = pass;
         document.getElementById('inputs').innerHTML = "";
     }
     showCreds = false;

@@ -1,26 +1,29 @@
 ﻿@model string[]
 
-<div id="inputs">
-    @Helpers.TextArea()
-    <div class="row">
-        <div class="@Helpers.ResponsiveClass()">
-            <div class="pull-right">
-                @using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "beforeFormSubmit()", target = "iframe" }))
-                {
-                    <input id="id" name="id" type="hidden" />
-                    <input id="encrypted" type="hidden" name="data" />
-                    <br />
-                    <button class="btn btn-primary" type="submit">Send</button>
-                }
-            </div>
-        </div>
-    </div>
-</div>
-
-<iframe name="iframe" height="0" width="0" onload="afterFormSubmit()"></iframe>
-<div id="setresult" class="centered"></div>
-<script type="text/javascript" src="~/Static/uheprng.js"></script>
-<script type="text/javascript" src="~/Static/set.js"></script>
 <script type="text/javascript">
     var url = '@Url.RouteUrl("Get", new { }, Request.Url.Scheme)';
 </script>
+
+<div id="inputs">
+    <textarea id="data" class="form-control" rows="15" placeholder="your message..."></textarea>
+    <div class="pull-right">
+        @using (Html.BeginForm("Set", "Main", FormMethod.Post, new { onsubmit = "beforeFormSubmit()", target = "iframe" }))
+        {
+            <input id="id" name="id" type="hidden" />
+            <input id="encrypted" type="hidden" name="data" />
+            <br />
+            <button class="btn btn-primary" type="submit">Send</button>
+        }
+    </div>
+    <iframe name="iframe" height="0" width="0" onload="afterFormSubmit();"></iframe>
+</div>
+
+<div id="result" class="centered" hidden="hidden">
+    <p class="info-only">Message saved, it can be accessed only once within the next 5 minutes</p>
+    <span class="info-only" unselectable="on">URL</span>
+    <span id="accessUrl"></span>
+    <br />
+    <span class="info-only" unselectable="on">password</span>
+    <span id="accessPassword"></span>
+</div>
+
