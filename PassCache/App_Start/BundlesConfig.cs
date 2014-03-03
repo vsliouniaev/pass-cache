@@ -1,9 +1,27 @@
-﻿using System.Web.Optimization;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BundlesConfig.cs" company="N/A">
+//   Public domain
+// </copyright>
+// <summary>
+//   The bundle config.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace PassCache
 {
-    public class BundleConfig
+    using System.Web.Optimization;
+
+    /// <summary>
+    /// The bundle config.
+    /// </summary>
+    public class BundlesConfig
     {
+        /// <summary>
+        /// The register bundles.
+        /// </summary>
+        /// <param name="bundles">
+        /// The bundles.
+        /// </param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(
@@ -12,12 +30,11 @@ namespace PassCache
                     "~/Static/sjcl.js",
                     "~/Static/get.js",
                     "~/Static/set.js"));
-            
+
             bundles.Add(new StyleBundle("~/css").Include(
-                    "~/Static/bootstrap.min.css",
-                    "~/Static/passcache.css"
-                ));
-            
+                "~/Static/bootstrap.min.css",
+                "~/Static/passcache.css"));
+
             BundleTable.EnableOptimizations = true;
         }
     }
