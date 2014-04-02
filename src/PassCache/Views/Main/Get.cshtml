@@ -1,13 +1,19 @@
 ﻿@model string
+
+<script type="text/javascript" language="javascript">
+    window.onload = function() {
+        var url = window.location.toString();
+        var pass = url.split("#")[1];
+        document.getElementById('pass').value = pass;
+        decrypt();
+    }
+</script>
+
+
 <input id="encrypted" type="hidden" value="@Model"/>
-<div class="input-group">
-    <input id="pass" type="text" class="form-control" placeholder="password" />
-    <span class="input-group-btn">
-        <button class="btn btn-primary pull-right" onclick="decrypt()">Decrypt</button>
-    </span>
-</div>
-<br />
+<input id="pass" type="hidden" />
 <textarea id="data" class="form-control" rows="15"></textarea>
+
 
 
 

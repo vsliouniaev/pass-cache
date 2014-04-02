@@ -50,8 +50,9 @@ function stopPrngs() {
     stop = true;
     raw = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(urlP.string(64)), true);
     var id = encodeURIComponent(raw);
-    fullUrl = url + '?id=' + id;
     pass = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(passwordP.string(64)), true);
+    fullUrl = url + '?id=' + id + '#' + pass;
+
 };
 
 function afterFormSubmit() {
@@ -59,7 +60,6 @@ function afterFormSubmit() {
         document.title = "passcache";
         document.getElementById('result').removeAttribute("hidden");
         document.getElementById('accessUrl').innerHTML = fullUrl;
-        document.getElementById('accessPassword').innerHTML = pass;
         document.getElementById('inputs').innerHTML = "";
     }
     showCreds = false;
