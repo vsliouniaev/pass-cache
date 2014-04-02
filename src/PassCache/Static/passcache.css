@@ -37,6 +37,11 @@ button {
     width: 80px;
 }
 
+
+#copy-button {
+    width: 200px;
+}
+
 iframe {
     visibility: hidden;
     display: none;
@@ -61,4 +66,14 @@ textarea {
     -o-user-select: none;
     user-select: none;
     color: #888888;
+}
+
+#accessUrl
+{
+    font-size: larger;
+    width: 400px;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    -ms-text-justify: auto;
+    text-justify: auto;
 }
