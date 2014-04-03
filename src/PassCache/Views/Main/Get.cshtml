@@ -1,13 +1,9 @@
 ﻿@model string
-<input id="encrypted" type="hidden" value="@Model"/>
-<div class="input-group">
-    <input id="pass" type="text" class="form-control" placeholder="password" />
-    <span class="input-group-btn">
-        <button class="btn btn-primary pull-right" onclick="decrypt()">Decrypt</button>
-    </span>
+<input id="encrypted" type="hidden" value="@Model" />
+<div id="inputs">
+    <br />
+    <textarea id="data" class="form-control" rows="15"></textarea>
 </div>
-<br />
-<textarea id="data" class="form-control" rows="15"></textarea>
 
 
 

@@ -38,7 +38,7 @@ passG();
 //                        Interaction handlers
 // ---------------------------------------------------------------------
 
- function beforeFormSubmit() {
+function beforeFormSubmit() {
     stopPrngs();
     var data = document.getElementById('data').value;
     document.getElementById('id').value = raw;
@@ -58,8 +58,7 @@ function afterFormSubmit() {
     if (showCreds) {
         document.title = "passcache";
         document.getElementById('result').removeAttribute("hidden");
-        document.getElementById('accessUrl').innerHTML = fullUrl;
-        document.getElementById('accessPassword').innerHTML = pass;
+        document.getElementById('accessUrl').innerHTML = fullUrl + '#' + pass;
         document.getElementById('inputs').innerHTML = "";
     }
     showCreds = false;

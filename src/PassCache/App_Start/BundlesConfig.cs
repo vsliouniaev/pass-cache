@@ -28,14 +28,16 @@ namespace PassCache
                 new ScriptBundle("~/js").Include(
                     "~/Static/uheprng.js",
                     "~/Static/sjcl.js",
+                    "~/Static/zeroclipboard.js",
                     "~/Static/get.js",
                     "~/Static/set.js"));
 
             bundles.Add(new StyleBundle("~/css").Include(
                 "~/Static/bootstrap.min.css",
                 "~/Static/passcache.css"));
-
+#if !DEBUG
             BundleTable.EnableOptimizations = true;
+#endif
         }
     }
 }
