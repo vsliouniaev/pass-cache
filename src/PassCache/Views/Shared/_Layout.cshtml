@@ -1,11 +1,12 @@
 ﻿@using System.Web.Optimization
+@using PassCache
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>passcache</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/css")
+    @Styles.Render(BundlesConfig.StylesLocation)
 </head>
 
 <body>
@@ -24,7 +25,7 @@
         <a href="https://github.com/vsliouniaev/pass-cache">
             <img alt="github" src="~/Static/GitHub-Mark-32px.png" height="25" width="25" /></a>
     </div>
-    @Scripts.Render("~/js")
+    @Scripts.Render(BundlesConfig.ScriptsLocation)
 </body>
 </html>
 

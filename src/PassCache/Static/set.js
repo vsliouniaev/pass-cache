@@ -52,14 +52,30 @@ function stopPrngs() {
     var id = encodeURIComponent(raw);
     fullUrl = url + '?id=' + id;
     pass = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(passwordP.string(64)), true);
+    fullUrl += '#' + pass;
 };
 
 function afterFormSubmit() {
     if (showCreds) {
         document.title = "passcache";
         document.getElementById('result').removeAttribute("hidden");
-        document.getElementById('accessUrl').innerHTML = fullUrl + '#' + pass;
+        document.getElementById('accessUrl').innerHTML = fullUrl;
+        document.getElementById('copy-button').setAttribute('data-clipboard-text', fullUrl);
         document.getElementById('inputs').innerHTML = "";
     }
     showCreds = false;
 };
+
+
+// ---------------------------------------------------------------------
+//                        Zero Clipboard Code
+// ---------------------------------------------------------------------
+
+var client = new ZeroClipboard(document.getElementById("copy-button"));
+client.on("ready", function () {
+    document.getElementById('copy-button-wrapper').removeAttribute('hidden');
+    client.on("aftercopy", function (event) {
+        document.getElementById('copy-button').setAttribute('disabled', 'disabled');
+        document.getElementById('copy-button').innerHTML = 'Copied to clipboard';
+    });
+});

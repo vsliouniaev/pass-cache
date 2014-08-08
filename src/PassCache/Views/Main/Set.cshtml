@@ -21,8 +21,9 @@
 <div id="result" class="centered" hidden="hidden">
     <p class="info-only">Message saved, it can be accessed only once within the next 5 minutes at the following URL</p>
     <strong><span id="accessUrl"></span></strong>
-    <br />
-    <a href="@Url.RouteUrl("Default")">Return</a>
-
+    <span id="copy-button-wrapper" hidden="hidden">
+        <button class="btn btn-warning" id="copy-button" data-clipboard-text="" title="Click to copy" hidden="hidden">Copy</button>
+    </span>
+    <a  class="centered" href="@Url.RouteUrl("Default")">Return</a>
 </div>
 

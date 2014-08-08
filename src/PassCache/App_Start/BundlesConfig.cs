@@ -17,6 +17,16 @@ namespace PassCache
     public class BundlesConfig
     {
         /// <summary>
+        /// Server location of styles bundle.
+        /// </summary>
+        public const string StylesLocation = "~/Static/css";
+        
+        /// <summary>
+        /// Server location of scripts bundle.
+        /// </summary>
+        public const string ScriptsLocation = "~/Static/js";
+
+        /// <summary>
         /// The register bundles.
         /// </summary>
         /// <param name="bundles">
@@ -25,14 +35,14 @@ namespace PassCache
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(
-                new ScriptBundle("~/js").Include(
+                new ScriptBundle(ScriptsLocation).Include(
                     "~/Static/uheprng.js",
                     "~/Static/sjcl.js",
-                    "~/Static/zeroclipboard.js",
+                    "~/Static/zeroclipboard.min.js",
                     "~/Static/get.js",
                     "~/Static/set.js"));
 
-            bundles.Add(new StyleBundle("~/css").Include(
+            bundles.Add(new StyleBundle(StylesLocation).Include(
                 "~/Static/bootstrap.min.css",
                 "~/Static/passcache.css"));
 #if !DEBUG

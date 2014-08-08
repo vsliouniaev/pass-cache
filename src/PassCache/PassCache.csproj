@@ -111,6 +111,8 @@
     <Content Include="Static\set.js" />
     <Content Include="Static\sjcl.js" />
     <Content Include="Static\uheprng.js" />
+    <Content Include="Static\ZeroClipboard.min.js" />
+    <Content Include="Static\ZeroClipboard.swf" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -33,10 +33,6 @@ img {
     margin-top: 20px;
 }
 
-button {
-    width: 80px;
-}
-
 iframe {
     visibility: hidden;
     display: none;
@@ -61,4 +57,8 @@ textarea {
     -o-user-select: none;
     user-select: none;
     color: #888888;
+}
+
+#copy-button {
+    margin-left: -20px;
 }
