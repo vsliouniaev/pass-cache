@@ -138,6 +138,7 @@
     <Content Include="Views\Main\Get.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\FS.pubxml" />
     <None Include="Properties\PublishProfiles\Janus.pubxml" />
     <None Include="Properties\PublishProfiles\PassCache - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\PassCache - Web Deploy.pubxml" />
