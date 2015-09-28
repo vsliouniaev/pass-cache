@@ -26,14 +26,17 @@ namespace PassCacheTray
                 GHK.Unregister();
             }
 
-            Setting.ComboModifier1 = (HotKeyModifiers) cbxModifier1.SelectedValue;
-            Setting.ComboModifier2 = (HotKeyModifiers) cbxModifier2.SelectedValue;
             Keys k;
-
-            if(Keys.TryParse(tbxLetter.Text, true, out k))
+            if (Keys.TryParse(tbxLetter.Text, true, out k))
             {
                 Setting.ComboLetter = k;
             }
+            Setting.ComboModifier1 = (HotKeyModifiers) cbxModifier1.SelectedValue;
+            Setting.ComboModifier2 = (HotKeyModifiers) cbxModifier2.SelectedValue;
+            Setting.PassCacheUrl = tbxServerUri.Text;
+            Worker.ServerUri = Setting.PassCacheUrl;
+
+            Setting.SaveToSettings(Settings.Default);
             
             GHK = new GlobalHotkey(Setting.ComboModifier1, Setting.ComboModifier2, Setting.ComboLetter, this);
             GHK.Register();
@@ -53,10 +56,10 @@ namespace PassCacheTray
             var data = Clipboard.GetText();
             var result = Worker.EncryptClipboard(data);
             
-            Clipboard.SetText(result.FullUrl);
-
             Worker.PostToServer(result);
-            
+        
+            Clipboard.SetText(result.FullUrl);
+        
             niTray.ShowBalloonTip(3000, "PassCache Tray", "URL has been copied to your clipboard.", ToolTipIcon.Info);
         }
 
@@ -84,10 +87,11 @@ namespace PassCacheTray
                 HotKeyModifiers.ALT,
                 HotKeyModifiers.SHIFT
             };
-
+            
             cbxModifier1.SelectedItem = Setting.ComboModifier1;
             cbxModifier2.SelectedItem = Setting.ComboModifier2;
             tbxLetter.Text = Setting.ComboLetter.ToString();
+            tbxServerUri.Text = Setting.PassCacheUrl;
         }
 
         #region Validation Stuff
@@ -172,7 +176,10 @@ namespace PassCacheTray
                 GHK.Unregister();
             }
 
-            Application.Exit();
+            niTray.Visible = false;
+            Application.DoEvents();
+            Environment.Exit(0);
+            
         }
 
         #endregion

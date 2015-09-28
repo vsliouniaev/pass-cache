@@ -43,7 +43,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbxServerUri = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -56,7 +56,7 @@
             // 
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.tbxServerUri);
             this.groupBox1.Controls.Add(this.cbxModifier2);
             this.groupBox1.Controls.Add(this.cbxModifier1);
             this.groupBox1.Controls.Add(this.btnSave);
@@ -160,12 +160,12 @@
             this.label2.TabIndex = 3;
             this.label2.Text = resources.GetString("label2.Text");
             // 
-            // textBox1
+            // tbxServerUri
             // 
-            this.textBox1.Location = new System.Drawing.Point(84, 27);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(256, 20);
-            this.textBox1.TabIndex = 9;
+            this.tbxServerUri.Location = new System.Drawing.Point(84, 27);
+            this.tbxServerUri.Name = "tbxServerUri";
+            this.tbxServerUri.Size = new System.Drawing.Size(256, 20);
+            this.tbxServerUri.TabIndex = 9;
             // 
             // label1
             // 
@@ -238,7 +238,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbxServerUri;
         private System.Windows.Forms.Label label4;
     }
 }

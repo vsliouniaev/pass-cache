@@ -26,7 +26,7 @@ namespace PassCacheTray.Models
         public void SaveToSettings(Settings s)
         {
             s.ComboKey1 = ComboModifier1.ToString();
-            s.ComboKey2= ComboModifier1.ToString();
+            s.ComboKey2= ComboModifier2.ToString();
             s.ComboLetter = ComboLetter;
             s.PassCacheUrl = PassCacheUrl;
 
