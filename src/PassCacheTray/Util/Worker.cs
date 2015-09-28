@@ -37,16 +37,18 @@ namespace PassCacheTray.Util
             var result = new Result
             {
                 Id = jc.GetParameter("id") as string,
+                RawId = jc.GetParameter("raw") as string,
                 Json = jc.GetParameter("result") as string,
                 FullUrl = jc.GetParameter("fullUrl") as string
             };
+
             return result;
         }
 
         public async void PostToServer(Result result)
         {
             var responseString = await ServerUri
-                .PostUrlEncodedAsync(new { id = result.Id, data = result.Json })
+                .PostUrlEncodedAsync(new { id = result.RawId, data = result.Json })
                 .ReceiveString();
         }
 
@@ -54,11 +56,13 @@ namespace PassCacheTray.Util
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
             {
-                string result = reader.ReadToEnd();
-                return result;
+                using (var reader = new StreamReader(stream))
+                {
+                    string result = reader.ReadToEnd();
+                    return result;
+                }
             }
         }
     }
