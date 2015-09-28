@@ -34,6 +34,11 @@ img {
 }
 
 
+
+#copy-button {
+    width: 200px;
+}
+
 iframe {
     visibility: hidden;
     display: none;
@@ -63,4 +68,5 @@ textarea {
 #copy-button {
     margin-left: -20px;
 }
+
 
