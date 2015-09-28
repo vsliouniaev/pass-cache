@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PassCacheTray.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ComboKey1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CTRL</Value>
+    </Setting>
+    <Setting Name="ComboKey2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SHIFT</Value>
+    </Setting>
+    <Setting Name="ComboLetter" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">C</Value>
+    </Setting>
+    <Setting Name="PassCacheUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://passcache.greenfinch.ie/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
