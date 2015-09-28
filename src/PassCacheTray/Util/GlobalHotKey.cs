@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PassCacheTray.Models;
 
-namespace PassCacheTray
+namespace PassCacheTray.Util
 {
     public class GlobalHotkey
     {

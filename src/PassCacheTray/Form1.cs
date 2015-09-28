@@ -1,38 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Flurl.Http;
-using Noesis.Javascript;
 using PassCacheTray.Models;
 using PassCacheTray.Properties;
+using PassCacheTray.Util;
 
 namespace PassCacheTray
 {
     public partial class frmMain : Form
     {
         private PassCacheTraySetting Setting { get; set; }
-
-        public GlobalHotkey GHK { get; set; }
+        private Worker Worker { get; set; }
+        private GlobalHotkey GHK { get; set; }
 
         public frmMain()
         {
             InitializeComponent();
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == 0x0312)
-                HandleHotKeyPressEvent();
-            base.WndProc(ref m);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -58,87 +42,36 @@ namespace PassCacheTray
             niTray.ShowBalloonTip(3000, "PassCache Tray", msg , ToolTipIcon.Info);
         }
 
-        public async void HandleHotKeyPressEvent()
+        private void HandleHotKeyPressEvent()
         {
-            
             if (!Clipboard.ContainsText())
             {
                 niTray.ShowBalloonTip(3000, "PassCache Tray", "Clipboard must contain text to use passcache.", ToolTipIcon.Error);
                 return;
             }
 
+            var data = Clipboard.GetText();
+            var result = Worker.EncryptClipboard(data);
+            
+            Clipboard.SetText(result.FullUrl);
 
-            var uheprng = GetScript("PassCacheTray.Resources.uheprng.js");
-            var sjcl = GetScript("PassCacheTray.Resources.sjcl.js");
-            var code = GetScript("PassCacheTray.Resources.code.js");
-
-            var jc = new JavascriptContext();
-
-            jc.SetParameter("plaintext", Clipboard.GetText());
-            jc.SetParameter("url", Setting.PassCacheUrl + "/Get");
-            jc.Run(uheprng);
-            jc.Run(sjcl);
-            jc.Run(code);
-
-            string id = jc.GetParameter("id") as string;
-            string json = jc.GetParameter("result") as string;
-            string url = jc.GetParameter("fullUrl") as string;
-
-            Clipboard.SetText(url);
-
-            PostToServer(id, json);
-
+            Worker.PostToServer(result);
+            
             niTray.ShowBalloonTip(3000, "PassCache Tray", "URL has been copied to your clipboard.", ToolTipIcon.Info);
         }
 
-
-        private string GetScript(string resourceName)
+        protected override void WndProc(ref Message m)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string result = reader.ReadToEnd();
-                return result;
-            }
+            if (m.Msg == 0x0312)
+                HandleHotKeyPressEvent();
+            base.WndProc(ref m);
         }
-
-        private async void PostToServer(string id, string json)
-        {
-            var responseString = await Setting.PassCacheUrl
-                .PostUrlEncodedAsync(new { id = id, data = json })
-                .ReceiveString();
-
-            Debug.WriteLine(responseString);
-        }
-
-        private void tbxLetter_Validating(object sender, CancelEventArgs e)
-        {
-            var t = sender as TextBox;
-
-            if (t == null) return;
-
-            if (string.IsNullOrEmpty(t.Text) || t.Text.Length > 1 || !t.Text.IsLetter())
-            {
-                e.Cancel = true;
-                errorProvider1.SetError(tbxLetter, "Shortcut Combo must have a Single Letter");
-            }
-            else
-            {
-                errorProvider1.Clear();
-            }
-        }
-
-        private void niTray_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.Show();
-        }
-
 
         private void frmMain_Load(object sender, EventArgs e)
         {
             Setting = new PassCacheTraySetting(Settings.Default);
+            Worker = new Worker(Setting.PassCacheUrl);
+
             cbxModifier1.DataSource = new List<HotKeyModifiers>
             {
                 HotKeyModifiers.CTRL,
@@ -156,6 +89,8 @@ namespace PassCacheTray
             cbxModifier2.SelectedItem = Setting.ComboModifier2;
             tbxLetter.Text = Setting.ComboLetter.ToString();
         }
+
+        #region Validation Stuff
 
         private void cbxModifier2_Validating(object sender, CancelEventArgs e)
         {
@@ -187,6 +122,32 @@ namespace PassCacheTray
             }
         }
 
+        private void tbxLetter_Validating(object sender, CancelEventArgs e)
+        {
+            var t = sender as TextBox;
+
+            if (t == null) return;
+
+            if (string.IsNullOrEmpty(t.Text) || t.Text.Length > 1 || !t.Text.IsLetter())
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(tbxLetter, "Shortcut Combo must have a Single Letter");
+            }
+            else
+            {
+                errorProvider1.Clear();
+            }
+        }
+
+        #endregion 
+
+        #region Menu Stuff
+        
+        private void niTray_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+        }
+
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -211,9 +172,10 @@ namespace PassCacheTray
                 GHK.Unregister();
             }
 
-
             Application.Exit();
         }
-        
+
+        #endregion
+
     }
 }
