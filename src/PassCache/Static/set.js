@@ -60,10 +60,8 @@ function afterFormSubmit() {
         document.title = "passcache";
         document.getElementById('result').removeAttribute("hidden");
         document.getElementById('accessUrl').innerHTML = fullUrl;
-<<<<<<< HEAD
         document.getElementById('copy-button').setAttribute('data-clipboard-text', fullUrl);
-=======
->>>>>>> Single # URL + ZeroClipboard Code
+
         document.getElementById('inputs').innerHTML = "";
     }
     showCreds = false;
