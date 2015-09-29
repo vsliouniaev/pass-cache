@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>PassCacheTray</id>
+    <version>1.0.0.0</version>
+    <title>Pass-cache Tray</title>
+    <authors>Vasily Sliouniaev, Eoin Campbell</authors>
+    <owners>Vasily Sliouniaev, Eoin Campbell</owners>
+    <projectUrl>https://github.com/vsliouniaev/pass-cache</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/eoincgreenfinch/pass-cache/master/src/PassCacheTray/padlock.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>A windows desktop tray icon app, allowing you to set a hotkey to autoencrypt and submit content to pass cache.</summary>
+    <description>A windows desktop tray icon app, allowing you to set a hotkey to autoencrypt and submit content to pass cache.</description>
+    <releaseNotes>Inital Release</releaseNotes>
+    <copyright>Copyright © 2015</copyright>
+    <tags>Pass-cache Encryption Secure Messaging</tags>
+  </metadata>
+</package>
