@@ -15,4 +15,8 @@
     <copyright>Copyright © 2015</copyright>
     <tags>Pass-cache Encryption Secure Messaging</tags>
   </metadata>
+    <files>
+    <file src=".\PassCacheTray.exe" target="tools" />
+    <file src=".\Noesis.Javascript.dll" target="tools" />
+  </files>
 </package>
