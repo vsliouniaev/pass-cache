@@ -3,6 +3,20 @@
 <script type="text/javascript">
     var url = '@Url.RouteUrl("Get", new { }, Request.Url.Scheme)';
 </script>
+<script src="@Url.Content("~/Scripts/ZeroClipboard.min.js")" language="javascript" type="text/javascript"></script>
+<script>
+    window.onload = function () {
+        var clip = new ZeroClipboard(document.getElementById("copy-button"), {
+            moviePath: "/Scripts/ZeroClipboard.swf"
+        });
+
+        clip.on('complete', function (client, args) {
+            alert("Passcache url copied to your clipboard.");
+        });
+    };
+</script>
+
+
 
 <div id="inputs">
     <textarea id="data" class="form-control" rows="15" placeholder="your message..."></textarea>
@@ -19,11 +33,15 @@
 </div>
 
 <div id="result" class="centered" hidden="hidden">
+
     <p class="info-only">Message saved, it can be accessed only once within the next 5 minutes at the following URL</p>
     <strong><span id="accessUrl"></span></strong>
     <span id="copy-button-wrapper" hidden="hidden">
         <button class="btn btn-warning" id="copy-button" data-clipboard-text="" title="Click to copy" hidden="hidden">Copy</button>
     </span>
     <a  class="centered" href="@Url.RouteUrl("Default")">Return</a>
+
 </div>
+
+
 

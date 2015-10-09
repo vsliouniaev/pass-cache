@@ -50,9 +50,9 @@ function stopPrngs() {
     stop = true;
     raw = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(urlP.string(64)), true);
     var id = encodeURIComponent(raw);
-    fullUrl = url + '?id=' + id;
     pass = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(passwordP.string(64)), true);
-    fullUrl += '#' + pass;
+    fullUrl = url + '?id=' + id + '#' + pass;
+
 };
 
 function afterFormSubmit() {
