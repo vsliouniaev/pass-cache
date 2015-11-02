@@ -14,8 +14,8 @@ var passwordP = Uheprng();
 
 urlP.initState();
 urlP.initState();
-urlP.addEntropy("@Model[0]");
-passwordP.addEntropy("@Model[1]");
+urlP.addEntropy(urlEntropy);
+passwordP.addEntropy(passEntropy);
 
 function urlG() {
     urlP.addEntropy();

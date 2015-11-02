@@ -23,8 +23,9 @@
     </div>
     <div class="git">
         <a href="https://github.com/vsliouniaev/pass-cache">
-            <img alt="github" src="~/Static/GitHub-Mark-32px.png" height="25" width="25" /></a>
+            <img alt="github" src="~/Static/GitHub-Mark-32px.png" height="25" width="25"/></a>
     </div>
+    @RenderSection("scripts", required: false)
     @Scripts.Render(BundlesConfig.ScriptsLocation)
 </body>
 </html>
