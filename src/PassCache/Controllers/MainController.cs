@@ -12,6 +12,7 @@ namespace PassCache.Controllers
     using System;
     using System.Web.Caching;
     using System.Web.Mvc;
+    using System.Linq;
 
     /// <summary>
     /// The single controller for this project
@@ -63,6 +64,11 @@ namespace PassCache.Controllers
                 return this.View("Gone");
             }
 
+            if (IsLinkProbe())
+            {
+                return this.View("LinkProbe");
+            }
+
             var obj = (SingleAccessObject<string>)System.Web.HttpContext.Current.Cache.Get(id);
 
             if (obj == null)
@@ -94,6 +100,26 @@ namespace PassCache.Controllers
             var bytes = new byte[256];
             new System.Security.Cryptography.RNGCryptoServiceProvider().GetBytes(bytes);
             return Convert.ToBase64String(bytes);
+        }
+
+        /// <summary>
+        /// Skype and WhatsApp can innocently visit links and invalidate the contents.
+        /// </summary>
+        /// <returns></returns>
+        private bool IsLinkProbe()
+        {
+            string[] blockedAgents = {"skype", "whatsapp" };
+
+            var userAgent = Request?.Headers.Get("User-Agent").ToLower();
+            if (userAgent != null)
+            {
+                if (blockedAgents.Any(blockedAgent => userAgent.Contains(blockedAgent)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
