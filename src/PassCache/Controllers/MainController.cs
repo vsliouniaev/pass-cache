@@ -108,7 +108,7 @@ namespace PassCache.Controllers
         /// <returns></returns>
         private bool IsLinkProbe()
         {
-            string[] blockedAgents = {"skype", "whatsapp" };
+            string[] blockedAgents = {"skype", "whatsapp", "slack" };
 
             var userAgent = Request?.Headers.Get("User-Agent").ToLower();
             if (userAgent != null)
