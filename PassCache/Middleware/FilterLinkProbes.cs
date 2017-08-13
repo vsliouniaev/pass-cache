@@ -8,7 +8,7 @@ namespace PassCache.Middleware
 {
     public class FilterLinkProbes
     {
-        private string[] _blockedAgents;// = { "skype", "whatsapp" };
+        private string[] _blockedAgents;
         private readonly RequestDelegate _next;
 
         public FilterLinkProbes(RequestDelegate next, IConfiguration configuration)
