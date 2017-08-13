@@ -1,0 +1,35 @@
+﻿@model string[]
+
+<script>
+    var afterFormSubmit = function() { /* suppress error */}
+</script>
+
+@section Scripts{
+    <script>
+        var url = '@Url.Action("Get", null, null, Context.Request.Scheme)';
+        var urlEntropy = '@Model[0]';
+        var passEntropy = '@Model[1]';
+    </script>
+}
+
+<div id="inputs">
+    <textarea id="data" class="form-control" rows="15" placeholder="your message..."></textarea>
+    <div class="pull-right">
+        <form method="POST" onsubmit = "beforeFormSubmit()" target = "iframe">
+            <input id="id" name="id" type="hidden" />
+            <input id="encrypted" type="hidden" name="data" />
+            <br />
+            <button class="btn btn-primary" type="submit">Send</button>
+        </form>
+    </div>
+    <iframe name="iframe" height="0" width="0" onload="afterFormSubmit();"></iframe>
+</div>
+
+<div id="result" class="centered" hidden="hidden">
+    <p class="info-only">Message saved, it can be accessed only once within the next 5 minutes at the following URL</p>
+    <strong><span id="accessUrl"></span></strong>
+    <span id="copy-button-wrapper">
+        <button class="btn btn-warning" id="copy-button" onclick="copyToClipboard()" title="Click to copy">Copy</button>
+    </span>
+    <a class="centered" href="/">Return</a>
+</div>
