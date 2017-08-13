@@ -2,7 +2,7 @@
 window.onload = function () {
     var encrypted = document.getElementById('encrypted').value;
     var pass = window.location.toString().split('#');
-    if (pass.length == 2) {
+    if (pass.length === 2) {
         document.getElementById('data').value = sjcl.decrypt(pass[1], encrypted);
     }
 }
@@ -55,7 +55,7 @@ function beforeFormSubmit() {
     document.getElementById('id').value = raw;
     document.getElementById('encrypted').value = sjcl.encrypt(pass, data);
     showCreds = true;
-};
+}
 
 function stopPrngs() {
     stop = true;
@@ -64,7 +64,7 @@ function stopPrngs() {
     fullUrl = url + '?id=' + id;
     pass = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(passwordP.string(64)), true);
     fullUrl += '#' + pass;
-};
+}
 
 function afterFormSubmit() {
     if (showCreds) {
@@ -74,7 +74,7 @@ function afterFormSubmit() {
         document.getElementById('inputs').innerHTML = "";
     }
     showCreds = false;
-};
+}
 
 function copyToClipboard() {
 
