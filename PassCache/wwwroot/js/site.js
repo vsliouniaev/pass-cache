@@ -23,9 +23,11 @@ var passwordP = Uheprng();
 // ---------------------------------------------------------------------
 
 urlP.initState();
+urlP.addEntropy(getFromBrowserIfAvailable());
 urlP.addEntropy(urlEntropy);
 
 passwordP.initState();
+passwordP.addEntropy(getFromBrowserIfAvailable());
 passwordP.addEntropy(passEntropy);
 
 function urlG() {
@@ -40,6 +42,17 @@ function passG() {
     if (!stop) {
         setTimeout(passG, urlInteverval);
     }
+}
+
+function getFromBrowserIfAvailable() {
+    var cryptoObj = window.crypto || window.msCrypto;
+    if (!cryptoObj) {
+        return Math.random();
+    }
+
+    var array = new Uint32Array(64);
+    window.crypto.getRandomValues(array);
+    return array;
 }
 
 urlG();
