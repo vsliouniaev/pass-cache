@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
@@ -20,10 +21,10 @@ namespace PassCache.Middleware
         public async Task Invoke(HttpContext context)
         {
             if (context.Request.Headers.TryGetValue("User-Agent", out StringValues userAgents))
-            {
-                if (userAgents.Select(a => a.ToLowerInvariant()).Any(userAgent => _blockedAgents.Any(blockedAgent => blockedAgent.Contains(userAgent))))
+            {                
+                if (userAgents.Select(a => a.ToLowerInvariant()).Any(a => _blockedAgents.Any(a.Contains)))
                 {
-                    context.Response.Redirect("/", true);
+                    context.Response.StatusCode = 403;
                     return;
                 }
             }
