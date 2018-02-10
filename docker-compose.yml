@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  passcache:
+    image: passcache
+    build:
+      context: .
+      dockerfile: PassCache/Dockerfile
