@@ -1,3 +1,5 @@
+Replaced with https://github.com/vsliouniaev/go-pass-cache
+
 Use this tool instead of sending passwords directly through your instant messaging client. 
 
 The data is encrypted in your browser, then sent to the server and kept for 5 minutes in the server's RAM.
